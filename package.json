@@ -1,8 +1,7 @@
 {
-  "name": "template",
-  "private": true,
-  "version": "0.0.0",
-  "description": "TODO",
+  "name": "vue-react-wrapper",
+  "version": "0.0.1",
+  "description": "A wrapper of React, use React in Vue with data reactive",
   "author": "Innei",
   "license": "MIT",
   "main": "dist/index.cjs.js",
@@ -44,6 +43,17 @@
     "deploy": "vite build && gh-pages -d example/dist",
     "test": "vitest "
   },
+  "bump": {
+    "before": [
+      "npm run package"
+    ],
+    "publish": true
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "vue": "^3"
+  },
   "devDependencies": {
     "@innei-util/eslint-config-react-ts": "0.8.2",
     "@innei-util/eslint-config-ts": "latest",
@@ -67,14 +77,13 @@
     "typescript": "4.6.4",
     "vite": "2.9.8",
     "vite-tsconfig-paths": "3.4.1",
-    "vitest": "0.12.1"
-  },
-  "dependencies": {
+    "vue": "3.2.33",
+    "vitest": "0.12.1",
+    "react-markdown": "8.0.3",
     "@types/react": "18.0.9",
     "@types/react-dom": "18.0.3",
     "react": "18.1.0",
-    "react-dom": "18.1.0",
-    "react-markdown": "8.0.3",
-    "vue": "3.2.33"
-  }
+    "react-dom": "18.1.0"
+  },
+  "dependencies": {}
 }
