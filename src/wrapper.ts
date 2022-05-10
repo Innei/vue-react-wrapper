@@ -59,13 +59,18 @@ export const ReactWrapper = <P extends {}>(
           useEffect(() => {
             if (ctx.slots.default && childrenRef.current) {
               const defaults = ctx.slots.default()
-              createApp(
+              const app = createApp(
                 defineComponent({
                   setup() {
                     return () => h('div', defaults)
                   },
                 }),
-              ).mount(childrenRef.current)
+              )
+              app.mount(childrenRef.current)
+
+              return () => {
+                app.unmount()
+              }
             }
           }, [])
 
@@ -127,6 +132,10 @@ const VueRenderHelper =
         }),
       )
       vueInstance.mount(ref.current)
+
+      return () => {
+        vueInstance.unmount()
+      }
     }, [])
     return React.createElement('div', {
       ref,
