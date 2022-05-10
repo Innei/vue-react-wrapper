@@ -3,19 +3,56 @@
   <div ref="input"></div>
 
   <p>value: {{ value }}</p>
+
+  <hr />
+
+  <!-- <Test /> -->
+  <TestInput />
+  <hr />
+
+  <TestList>
+    <span>1111111</span>
+    <template #children>
+      <button @click="remove">remove</button>
+    </template>
+  </TestList>
 </template>
 
 <script lang="ts" setup>
 import { createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import ReactMarkdown from 'react-markdown'
-import { onMounted, ref, watchEffect } from 'vue'
+import { onMounted, reactive, ref, watchEffect } from 'vue'
 
+import { ReactWrapper } from '../src/wrapper'
 import { ReactInput, ReactInputProps } from './react-input'
+import { List } from './react-props'
+import Test from './test'
 
 const container = ref()
 const value = ref('')
 const input = ref()
+
+const reactiveProps = reactive({
+  onChange(e) {
+    reactiveProps.value = e.target.value
+  },
+  value: '1',
+})
+const TestInput = ReactWrapper(ReactInput, reactiveProps)
+
+const props2 = reactive({
+  data: ['0'],
+  onChange(data) {
+    props2.data = data
+  },
+})
+
+const TestList = ReactWrapper(List, props2)
+const remove = () => {
+  props2.data.splice(props2.data.length - 2, 1)
+}
+
 onMounted(() => {
   const element = createElement(ReactMarkdown, {}, '# Hello World')
 

@@ -1,7 +1,6 @@
 import React, {
-  EventHandler,
-  FC,
   forwardRef,
+  useEffect,
   useImperativeHandle,
   useState,
 } from 'react'
@@ -21,6 +20,9 @@ export const ReactInput = forwardRef<
       },
     }
   })
+  useEffect(() => {
+    setState(props)
+  }, [props])
   return React.createElement('input', {
     value: state.value,
     onChange: state.onChange,
