@@ -1,6 +1,6 @@
 {
   "name": "vue-react-wrapper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A wrapper of React, use React in Vue with data reactive",
   "author": "Innei",
   "license": "MIT",
