@@ -4,6 +4,18 @@ Status: Alpha
 
 A wrapper of react component, use react component in vue quickly.
 
+## Install
+
+```
+npm i vue-react-wrapper react react-dom
+```
+
+## Requirement
+
+React ^18
+ReactDOM ^18
+Vue ^3
+
 ## Why
 
 As we all know, Vue 3 is becoming more and more popular, not only for its light weight, but also for its efficient performance. However, Vue's ecology has always been lacking, and in some cases, there is no substitute for the same React component.
