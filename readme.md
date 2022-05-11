@@ -10,7 +10,7 @@ As we all know, Vue 3 is becoming more and more popular, not only for its light 
 
 I just wanted to find a JSONViewer for Vue 3, but there wasn't one, but the React ecosystem blossomed.
 
-So, is there a way to use React in Vue? Only in a certain scenario, because the whole business uses Vue and only a few scenarios need React support, so it is not a big problem to mix the two frameworks. In the decimal scenario, ReactWrapper can be dynamically imported to reduce the first loading bundle size of the entire App.
+So, is there a way to use React in Vue? Only in a certain scenario, because the whole business uses Vue and only a few scenarios need React support, so it is not a big problem to mix the two frameworks. In the decimal scenario, createReactWrapper can be dynamically imported to reduce the first loading bundle size of the entire App.
 
 
 ## Install
@@ -32,7 +32,7 @@ Example for [react-json-view](https://github.com/mac-s-g/react-json-view)
 ```tsx
 import ReactJSONView from 'react-json-view'
 import { reactive } from 'vue'
-import { ReactWrapper, defineComponent } from 'vue-react-wrapper'
+import { createReactWrapper, defineComponent } from 'vue-react-wrapper'
 
 // must pass a vue reactive object
 const props = reactive({
@@ -44,7 +44,7 @@ const props = reactive({
 
 // JSONView is vue component
 // ReactJSONView is a React Component
-const JSONView = ReactWrapper(ReactJSONView, props)
+const JSONView = createReactWrapper(ReactJSONView, props)
 
 export default defineComponent({
   setup() {
@@ -63,7 +63,7 @@ And if you prefer write vue sfc.
 <script setup lang="ts">
 import ReactJSONView from 'react-json-view'
 import { reactive } from 'vue'
-import { ReactWrapper, defineComponent } from 'vue-react-wrapper'
+import { createReactWrapper, defineComponent } from 'vue-react-wrapper'
 
 // must pass a vue reactive object
 const props = reactive({
@@ -75,7 +75,7 @@ const props = reactive({
 
 // JSONView is vue component
 // ReactJSONView is a React Component
-const JSONView = ReactWrapper(ReactJSONView, props)
+const JSONView = createReactWrapper(ReactJSONView, props)
 </script>
 ```
 
@@ -109,13 +109,13 @@ Pass react children like this.
 </template>
 
 <script lang="ts" setup>
-import { ReactWrapper } from 'vue-react-wrapper'
+import { createReactWrapper } from 'vue-react-wrapper'
 
 const props = reactive({
   data: ['0', '1', '2'],
 })
 
-const VList = ReactWrapper(List, props)
+const VList = createReactWrapper(List, props)
 
 const remove = () => {
   props.data.splice(props.data.length - 1, 1)
@@ -144,6 +144,7 @@ Check `./example/App.vue`
 - [ ] support react forwardRef
 - [ ] support root react container and root context
 - [ ] support pass vue ref
+- [ ] react types without global jsx namespace
 
 ## License
 

@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { createRoot } from 'react-dom/client'
+import { Root, createRoot } from 'react-dom/client'
 import {
   RendererElement,
   RendererNode,
@@ -18,11 +18,12 @@ import {
   h,
   isReactive,
   onMounted,
+  onUnmounted,
   ref,
   watch,
 } from 'vue'
 
-export const ReactWrapper = <P extends {}>(
+export const createReactWrapper = <P extends {}>(
   Component: FunctionComponent<P>,
   propsReactive: P,
 ) => {
@@ -33,6 +34,8 @@ export const ReactWrapper = <P extends {}>(
   return defineComponent({
     setup(_, ctx) {
       const containerRef = ref(null)
+
+      let reactDOMRoot: Root | null = null
 
       onMounted(() => {
         if (!containerRef.value) {
@@ -91,13 +94,19 @@ export const ReactWrapper = <P extends {}>(
             }),
           ])
         })
-
-        createRoot(containerRef.value).render(
+        reactDOMRoot = createRoot(containerRef.value)
+        reactDOMRoot!.render(
           // @ts-ignore
           React.createElement(wrapperReact, {
             ...(propsReactive as any as P),
           }),
         )
+      })
+
+      onUnmounted(() => {
+        if (reactDOMRoot) {
+          reactDOMRoot.unmount()
+        }
       })
 
       return () => h('div', { ref: containerRef })
@@ -141,3 +150,6 @@ const VueRenderHelper =
       ref,
     })
   }
+
+/** @deprecated please use createReactWrapper */
+export const ReactWrapper = createReactWrapper

@@ -24,10 +24,9 @@ import { createRoot } from 'react-dom/client'
 import ReactMarkdown from 'react-markdown'
 import { onMounted, reactive, ref, watchEffect } from 'vue'
 
-import { ReactWrapper } from '../src/wrapper'
+import { createReactWrapper } from '../src/wrapper'
 import { ReactInput, ReactInputProps } from './react-input'
 import { List } from './react-props'
-import Test from './test'
 
 const container = ref()
 const value = ref('')
@@ -39,7 +38,7 @@ const reactiveProps = reactive({
   },
   value: '1',
 })
-const TestInput = ReactWrapper(ReactInput, reactiveProps)
+const TestInput = createReactWrapper(ReactInput, reactiveProps)
 
 const props2 = reactive({
   data: ['0'],
@@ -48,9 +47,9 @@ const props2 = reactive({
   },
 })
 
-const TestList = ReactWrapper(List, props2)
+const TestList = createReactWrapper(List, props2)
 const remove = () => {
-  props2.data.splice(props2.data.length - 2, 1)
+  props2.data.splice(props2.data.length - 1, 1)
 }
 
 onMounted(() => {
