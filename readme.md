@@ -139,6 +139,11 @@ Pass default slot just change to this. Unlike the above, this will be injected i
 
 Check `./example/App.vue`
 
+## TODO
+
+- [ ] support react forwardRef
+- [ ] support root react container and root context 
+
 ## License
 
 MIT. Coding with ❤.
