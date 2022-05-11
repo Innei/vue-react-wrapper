@@ -4,6 +4,15 @@ Status: Alpha
 
 A wrapper of react component, use react component in vue quickly.
 
+## Why
+
+As we all know, Vue 3 is becoming more and more popular, not only for its light weight, but also for its efficient performance. However, Vue's ecology has always been lacking, and in some cases, there is no substitute for the same React component.
+
+I just wanted to find a JSONViewer for Vue 3, but there wasn't one, but the React ecosystem blossomed.
+
+So, is there a way to use React in Vue? Only in a certain scenario, because the whole business uses Vue and only a few scenarios need React support, so it is not a big problem to mix the two frameworks. In the decimal scenario, ReactWrapper can be dynamically imported to reduce the first loading bundle size of the entire App.
+
+
 ## Install
 
 ```
@@ -12,17 +21,9 @@ npm i vue-react-wrapper react react-dom
 
 ## Requirement
 
-React ^18
-ReactDOM ^18
-Vue ^3
-
-## Why
-
-As we all know, Vue 3 is becoming more and more popular, not only for its light weight, but also for its efficient performance. However, Vue's ecology has always been lacking, and in some cases, there is no substitute for the same React component.
-
-I just wanted to find a JSONViewer for Vue 3, but there wasn't one, but the React ecosystem blossomed.
-
-So, is there a way to use React in Vue? Only in a certain scenario, because the whole business uses Vue and only a few scenarios need React support, so it is not a big problem to mix the two frameworks. In the decimal scenario, ReactWrapper can be dynamically imported to reduce the first loading bundle size of the entire App.
+- React ^18
+- ReactDOM ^18
+- Vue ^3
 
 ## Simple Usage
 
