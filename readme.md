@@ -142,7 +142,8 @@ Check `./example/App.vue`
 ## TODO
 
 - [ ] support react forwardRef
-- [ ] support root react container and root context 
+- [ ] support root react container and root context
+- [ ] support pass vue ref
 
 ## License
 
