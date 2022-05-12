@@ -12,7 +12,6 @@ I just wanted to find a JSONViewer for Vue 3, but there wasn't one, but the Reac
 
 So, is there a way to use React in Vue? Only in a certain scenario, because the whole business uses Vue and only a few scenarios need React support, so it is not a big problem to mix the two frameworks. In the decimal scenario, createReactWrapper can be dynamically imported to reduce the first loading bundle size of the entire App.
 
-
 ## Install
 
 ```
@@ -21,9 +20,7 @@ npm i vue-react-wrapper react react-dom
 
 ## Requirement
 
-- React ^18
-- ReactDOM ^18
-- Vue ^3
+- Vue 3
 
 ## Simple Usage
 
@@ -31,7 +28,7 @@ Example for [react-json-view](https://github.com/mac-s-g/react-json-view)
 
 ```tsx
 import ReactJSONView from 'react-json-view'
-import { reactive, defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import { createReactWrapper } from 'vue-react-wrapper'
 
 // must pass a vue reactive object

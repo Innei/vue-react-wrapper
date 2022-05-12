@@ -23,10 +23,13 @@ import {
   watch,
 } from 'vue'
 
-export const createReactWrapper = <P extends {}>(
+export const createReactWrapper: typeof React.createElement = _wrapper as any
+
+function _wrapper<P extends {}>(
   Component: FunctionComponent<P>,
   propsReactive: P,
-) => {
+  ...children: React.ReactNode[]
+) {
   if (!isReactive(propsReactive)) {
     throw new Error('props must be reactive')
   }
@@ -96,10 +99,14 @@ export const createReactWrapper = <P extends {}>(
         })
         reactDOMRoot = createRoot(containerRef.value)
         reactDOMRoot!.render(
-          // @ts-ignore
-          React.createElement(wrapperReact, {
-            ...(propsReactive as any as P),
-          }),
+          React.createElement(
+            wrapperReact,
+            // @ts-ignore
+            {
+              ...(propsReactive as any as P),
+            },
+            children,
+          ),
         )
       })
 
