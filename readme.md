@@ -31,8 +31,8 @@ Example for [react-json-view](https://github.com/mac-s-g/react-json-view)
 
 ```tsx
 import ReactJSONView from 'react-json-view'
-import { reactive } from 'vue'
-import { createReactWrapper, defineComponent } from 'vue-react-wrapper'
+import { reactive, defineComponent } from 'vue'
+import { createReactWrapper } from 'vue-react-wrapper'
 
 // must pass a vue reactive object
 const props = reactive({
@@ -63,7 +63,7 @@ And if you prefer write vue sfc.
 <script setup lang="ts">
 import ReactJSONView from 'react-json-view'
 import { reactive } from 'vue'
-import { createReactWrapper, defineComponent } from 'vue-react-wrapper'
+import { createReactWrapper } from 'vue-react-wrapper'
 
 // must pass a vue reactive object
 const props = reactive({
