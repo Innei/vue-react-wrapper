@@ -10,11 +10,11 @@
   <hr />
 
   <TestList>
-    <span>Vue Scope</span>
+    <span>Vue</span>
     <template #children>
       <button @click="remove">remove</button>
 
-      <p>React Scope</p>
+      <p>React Button</p>
     </template>
   </TestList>
 </template>
