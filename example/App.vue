@@ -1,36 +1,32 @@
 <template>
-  <div ref="container"></div>
-  <div ref="input"></div>
-
-  <p>value: {{ value }}</p>
-
+  <div class="pt-10"></div>
+  <JSONView />
   <hr />
 
-  <!-- <Test /> -->
+  <MdView />
+  <hr />
+
   <TestInput />
   <hr />
 
   <TestList>
-    <span>1111111</span>
+    <span>Vue Scope</span>
     <template #children>
       <button @click="remove">remove</button>
+
+      <p>React Scope</p>
     </template>
   </TestList>
 </template>
 
 <script lang="ts" setup>
-import { createElement } from 'react'
-import { createRoot } from 'react-dom/client'
-import ReactMarkdown from 'react-markdown'
-import { onMounted, reactive, ref, watchEffect } from 'vue'
+import { reactive, ref } from 'vue'
 
 import { createReactWrapper } from '../src/wrapper'
-import { ReactInput, ReactInputProps } from './react-input'
+import JSONView from './components/json.vue'
+import MdView from './components/markdown.vue'
+import { ReactInput } from './react-input'
 import { List } from './react-props'
-
-const container = ref()
-const value = ref('')
-const input = ref()
 
 const reactiveProps = reactive({
   onChange(e) {
@@ -51,37 +47,4 @@ const TestList = createReactWrapper(List, props2)
 const remove = () => {
   props2.data.splice(props2.data.length - 1, 1)
 }
-
-onMounted(() => {
-  const element = createElement(ReactMarkdown, {}, '# Hello World')
-
-  createRoot(container.value).render(element)
-})
-
-let inputReactRef: any
-const memoOnChange = (e) => {
-  value.value = e.target.value
-}
-let inputReactProps: () => ReactInputProps = () => ({
-  value: value.value,
-  onChange: memoOnChange,
-})
-onMounted(() => {
-  const element = createElement(ReactInput, {
-    ...inputReactProps(),
-    ref: (el) => {
-      inputReactRef = el
-    },
-  })
-
-  createRoot(input.value).render(element)
-})
-
-watchEffect(() => {
-  void value.value
-
-  if (inputReactRef) {
-    inputReactRef.onPropsChange(inputReactProps())
-  }
-})
 </script>

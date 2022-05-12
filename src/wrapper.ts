@@ -2,6 +2,7 @@
 import React, {
   Fragment,
   FunctionComponent,
+  ReactNode,
   forwardRef,
   useEffect,
   useMemo,
@@ -27,8 +28,8 @@ export const createReactWrapper: typeof React.createElement = _wrapper as any
 
 function _wrapper<P extends {}>(
   Component: FunctionComponent<P>,
-  propsReactive: P,
-  ...children: React.ReactNode[]
+  propsReactive: P & { children?: ReactNode | ReactNode[] },
+  children: React.ReactNode[],
 ) {
   if (!isReactive(propsReactive)) {
     throw new Error('props must be reactive')
@@ -89,15 +90,28 @@ function _wrapper<P extends {}>(
 
             return null
           }, [])
+          let combinedChildren: ReactNode[] | null = [
+            vueChildrenIntoReact,
+            props.children,
+          ].filter(Boolean)
+          // @ts-ignore
+          combinedChildren =
+            combinedChildren.length == 0
+              ? undefined
+              : combinedChildren.length === 1
+              ? combinedChildren[0]
+              : combinedChildren
 
           return React.createElement(Fragment, null, [
-            React.createElement(Component, state, vueChildrenIntoReact),
+            React.createElement(Component, state, combinedChildren),
+
             React.createElement('div', {
               ref: childrenRef,
             }),
           ])
         })
         reactDOMRoot = createRoot(containerRef.value)
+
         reactDOMRoot!.render(
           React.createElement(
             wrapperReact,
@@ -105,7 +119,7 @@ function _wrapper<P extends {}>(
             {
               ...(propsReactive as any as P),
             },
-            children,
+            propsReactive.children ?? children,
           ),
         )
       })
