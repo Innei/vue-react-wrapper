@@ -92,7 +92,7 @@ function _wrapper<P extends {}>(
           }, [])
           let combinedChildren: ReactNode[] | null = [
             vueChildrenIntoReact,
-            props.children,
+            state.children,
           ].filter(Boolean)
           // @ts-ignore
           combinedChildren =
