@@ -28,10 +28,10 @@ export const createReactWrapper: typeof React.createElement = _wrapper as any
 
 function _wrapper<P extends {}>(
   Component: FunctionComponent<P>,
-  propsReactive: P & { children?: ReactNode | ReactNode[] },
-  children: React.ReactNode[],
+  propsReactive?: P & { children?: ReactNode | ReactNode[] },
+  children?: React.ReactNode[],
 ) {
-  if (!isReactive(propsReactive)) {
+  if (typeof propsReactive === 'object' && !isReactive(propsReactive)) {
     throw new Error('props must be reactive')
   }
 
@@ -50,17 +50,19 @@ function _wrapper<P extends {}>(
           const [state, setState] = useState(props)
 
           useEffect(() => {
-            const clean = watch(
-              () => propsReactive,
-              (newProps) => {
-                setState({ ...newProps } as any as P)
-              },
-              {
-                deep: true,
-              },
-            )
+            if (propsReactive) {
+              const clean = watch(
+                () => propsReactive,
+                (newProps) => {
+                  setState({ ...newProps } as any as P)
+                },
+                {
+                  deep: true,
+                },
+              )
 
-            return clean
+              return clean
+            }
           }, [])
           const childrenRef = useRef(null)
           useEffect(() => {
@@ -119,7 +121,7 @@ function _wrapper<P extends {}>(
             {
               ...(propsReactive as any as P),
             },
-            propsReactive.children ?? children,
+            propsReactive?.children ?? children,
           ),
         )
       })

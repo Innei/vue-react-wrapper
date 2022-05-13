@@ -17,12 +17,17 @@
       <p>React Button</p>
     </template>
   </TestList>
+
+  <hr />
+
+  <DnDView />
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 
 import { createReactWrapper } from '../src/wrapper'
+import DnDView from './components/dnd.vue'
 import JSONView from './components/json.vue'
 import MdView from './components/markdown.vue'
 import { ReactInput } from './react-input'
