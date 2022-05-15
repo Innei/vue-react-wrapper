@@ -15,7 +15,7 @@ So, is there a way to use React in Vue? Only in a certain scenario, because the 
 ## Install
 
 ```
-npm i vue-react-wrapper react react-dom
+npm i vue-react-wrapper
 ```
 
 ## Requirement
