@@ -6,7 +6,7 @@
   <MdView />
   <hr />
   TestInput
-  <TestInput />
+  <TestInput :react-ref="inputRefCb" @react-mount="onMountedReact" />
   <hr />
 
   <TestList>
@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 import { createReactWrapper } from '../src/wrapper'
 import DnDView from './components/dnd.vue'
@@ -33,6 +33,7 @@ import MdView from './components/markdown.vue'
 import { ReactInput } from './react-input'
 import { List } from './react-props'
 
+const inputRef = ref<HTMLElement>()
 const reactiveProps = ref({
   onChange(e) {
     reactiveProps.value = e.target.value
@@ -40,7 +41,11 @@ const reactiveProps = ref({
   value: '1',
 })
 const TestInput = createReactWrapper(ReactInput, reactiveProps)
+const inputRefCb = () => inputRef
 
+const onMountedReact = () => {
+  console.log(inputRef)
+}
 const props2 = reactive({
   data: ['0'],
   onChange(data) {

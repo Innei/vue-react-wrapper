@@ -11,6 +11,7 @@ import React, {
 } from 'react'
 import { Root, createRoot } from 'react-dom/client'
 import {
+  PropType,
   Ref,
   RendererElement,
   RendererNode,
@@ -43,10 +44,38 @@ export function createReactWrapper<P extends {}>(
   }
 
   return defineComponent({
-    setup(_, ctx) {
+    props: {
+      reactRef: {
+        type: Object as PropType<() => Ref<any> | Ref<any>>,
+        required: false,
+      },
+      onReactMount: {
+        type: Function as PropType<() => () => void | void | undefined>,
+        required: false,
+      },
+      onReactUnmount: {
+        type: Function as PropType<() => void>,
+        required: false,
+      },
+      // onReactReRender: {
+      // }
+    },
+    emits: ['react-mount', 'react-unmount'],
+    setup(vueRootProps, ctx) {
       const containerRef = ref(null)
-
+      // NOTE: this $ref is not reactive, because this is unnecessary
+      const $ref = vueRootProps.reactRef
+        ? isRef(vueRootProps.reactRef)
+          ? vueRootProps.reactRef
+          : vueRootProps.reactRef?.()
+        : undefined
       let reactDOMRoot: Root | null = null
+
+      const { emit, expose } = ctx
+
+      expose({
+        containerRef,
+      })
 
       onMounted(() => {
         if (!containerRef.value) {
@@ -55,6 +84,17 @@ export function createReactWrapper<P extends {}>(
 
         const wrapperReact = forwardRef<any, P>((props, ref) => {
           const [state, setState] = useState(props)
+
+          // mount
+          useEffect(() => {
+            emit('react-mount')
+            return vueRootProps.onReactMount?.()
+          }, [])
+          // unmount
+          useEffect(() => {
+            emit('react-unmount')
+            return vueRootProps.onReactUnmount
+          }, [])
 
           useEffect(() => {
             if (propsReactive) {
@@ -112,7 +152,18 @@ export function createReactWrapper<P extends {}>(
               : combinedChildren
 
           return React.createElement(Fragment, null, [
-            React.createElement(Component, state, combinedChildren),
+            React.createElement(
+              Component,
+              isRef($ref)
+                ? {
+                    ...state,
+                    ref(ref: any) {
+                      $ref.value = ref
+                    },
+                  }
+                : state,
+              combinedChildren,
+            ),
 
             React.createElement('div', {
               ref: childrenRef,
