@@ -31,8 +31,9 @@ import ReactJSONView from 'react-json-view'
 import { defineComponent, reactive } from 'vue'
 import { createReactWrapper } from 'vue-react-wrapper'
 
-// must pass a vue reactive object
+// must pass a vue reactive object or Ref
 const props = reactive({
+  // ref type also work
   // props
   src: null as any,
   indentWidth: 2,
@@ -62,8 +63,9 @@ import ReactJSONView from 'react-json-view'
 import { reactive } from 'vue'
 import { createReactWrapper } from 'vue-react-wrapper'
 
-// must pass a vue reactive object
-const props = reactive({
+// must pass a vue reactive object or ref type
+const props = ref({
+  // or reactive
   // props
   src: null as any,
   indentWidth: 2,
@@ -132,15 +134,45 @@ Pass default slot just change to this. Unlike the above, this will be injected i
 </template>
 ```
 
+## Get react component inner ref
+
+```vue
+<template>
+  <TestInput :react-ref="inputRefCb" @react-mount="onMountedReact" />
+</template>
+
+<script lang="ts" setup>
+const reactiveProps = ref({
+  onChange(e) {
+    reactiveProps.value = e.target.value
+  },
+  value: '1',
+})
+
+const TestInput = createReactWrapper(ReactInput, reactiveProps)
+const inputRef = ref<HTMLElement>()
+const inputRefCb = () => inputRef // because vue template sfc will automatically destruct ref.value so pass a function wrapped ref
+
+const onMountedReact = () => {
+  console.log(inputRef) // can access ref here
+}
+</script>
+```
+
+## Access react lifecycle
+
+- pass `:onReactMount` or `@react-mount`
+- pass `:onReactUnMount` or `@react-unmount`
+
 ## Other usage
 
 Check `./example/App.vue`
 
 ## TODO
 
-- [ ] support react forwardRef
+- [x] support react forwardRef
 - [ ] support root react container and root context
-- [ ] support pass vue ref
+- [x] support pass vue ref
 - [x] react types without global jsx namespace
 
 ## Reference
