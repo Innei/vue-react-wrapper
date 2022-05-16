@@ -5,7 +5,7 @@
 
   <MdView />
   <hr />
-
+  TestInput
   <TestInput />
   <hr />
 
@@ -33,7 +33,7 @@ import MdView from './components/markdown.vue'
 import { ReactInput } from './react-input'
 import { List } from './react-props'
 
-const reactiveProps = reactive({
+const reactiveProps = ref({
   onChange(e) {
     reactiveProps.value = e.target.value
   },

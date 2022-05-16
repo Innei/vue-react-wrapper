@@ -11,6 +11,7 @@ import React, {
 } from 'react'
 import { Root, createRoot } from 'react-dom/client'
 import {
+  Ref,
   RendererElement,
   RendererNode,
   VNode,
@@ -18,20 +19,26 @@ import {
   defineComponent,
   h,
   isReactive,
+  isRef,
   onMounted,
   onUnmounted,
   ref,
   watch,
 } from 'vue'
 
-export const createReactWrapper: typeof React.createElement = _wrapper as any
-
-function _wrapper<P extends {}>(
+type WithChildren<C> = C & { children?: ReactNode | ReactNode[] }
+export function createReactWrapper<P extends {}>(
   Component: FunctionComponent<P>,
-  propsReactive?: P & { children?: ReactNode | ReactNode[] },
+  propsReactive?: Ref<WithChildren<P>> | WithChildren<P>,
   children?: React.ReactNode[],
 ) {
-  if (typeof propsReactive === 'object' && !isReactive(propsReactive)) {
+  const propsIsVueRef = isRef(propsReactive)
+
+  if (
+    typeof propsReactive === 'object' &&
+    !isReactive(propsReactive) &&
+    !propsIsVueRef
+  ) {
     throw new Error('props must be reactive')
   }
 
@@ -52,7 +59,7 @@ function _wrapper<P extends {}>(
           useEffect(() => {
             if (propsReactive) {
               const clean = watch(
-                () => propsReactive,
+                () => (propsIsVueRef ? propsReactive.value : propsReactive),
                 (newProps) => {
                   setState({ ...newProps } as any as P)
                 },
@@ -114,16 +121,29 @@ function _wrapper<P extends {}>(
         })
         reactDOMRoot = createRoot(containerRef.value)
 
-        reactDOMRoot!.render(
-          React.createElement(
-            wrapperReact,
-            // @ts-ignore
-            {
-              ...(propsReactive as any as P),
-            },
-            propsReactive?.children ?? children,
-          ),
-        )
+        if (propsIsVueRef) {
+          reactDOMRoot!.render(
+            React.createElement(
+              wrapperReact,
+              // @ts-ignore
+              {
+                ...(propsReactive.value as any as P),
+              },
+              propsReactive.value?.children ?? children,
+            ),
+          )
+        } else {
+          reactDOMRoot!.render(
+            React.createElement(
+              wrapperReact,
+              // @ts-ignore
+              {
+                ...(propsReactive as any as P),
+              },
+              propsReactive?.children ?? children,
+            ),
+          )
+        }
       })
 
       onUnmounted(() => {

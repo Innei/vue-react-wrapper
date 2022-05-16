@@ -141,7 +141,13 @@ Check `./example/App.vue`
 - [ ] support react forwardRef
 - [ ] support root react container and root context
 - [ ] support pass vue ref
-- [ ] react types without global jsx namespace
+- [x] react types without global jsx namespace
+
+## Reference
+
+Other similar libraries.
+
+- For Vue 2 [vuera](https://github.com/akxcv/vuera)
 
 ## License
 
