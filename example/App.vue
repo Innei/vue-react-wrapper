@@ -21,9 +21,11 @@
   <hr />
 
   <DnDView />
+  <kbar />
 </template>
 
 <script lang="ts" setup>
+import { KBar } from 'kbar'
 import { onMounted, reactive, ref } from 'vue'
 
 import { createReactWrapper } from '../src/wrapper'
@@ -33,6 +35,7 @@ import MdView from './components/markdown.vue'
 import { ReactInput } from './react-input'
 import { List } from './react-props'
 
+const kbar = createReactWrapper(KBar)
 const inputRef = ref<HTMLElement>()
 const reactiveProps = ref({
   onChange(e) {
