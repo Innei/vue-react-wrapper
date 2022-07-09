@@ -4,10 +4,23 @@
   "description": "A wrapper of React, use React in Vue with data reactive",
   "author": "Innei",
   "license": "MIT",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "unpkg": "dist/index.umd.min.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./react": {
+      "import": "./esm/libs/react.js",
+      "require": "./lib/libs/react.js",
+      "types": "./esm/libs/react.d.ts"
+    },
+    "./react-dom": {
+      "import": "./esm/libs/react-dom.js",
+      "require": "./lib/libs/react-dom.js",
+      "types": "./esm/libs/react-dom.d.ts"
+    }
+  },
   "files": [
     "src",
     "dist",
