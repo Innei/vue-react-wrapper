@@ -1,5 +1,0 @@
-{
-  "name": "@types/react",
-  "types": "./react.d.ts",
-  "dependencies": {}
-}

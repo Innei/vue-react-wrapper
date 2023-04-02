@@ -5,8 +5,7 @@ import {
   KBarProvider,
   KBarSearch,
 } from 'kbar'
-
-import React from '~/react-types/react/react'
+import React from 'react'
 
 export const KBar = () => {
   return React.createElement(KBarProvider, {
