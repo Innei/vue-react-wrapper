@@ -22,6 +22,16 @@ npm i vue-react-wrapper
 
 - Vue 3
 
+## Setting TSConfig
+
+```json
+{
+  "compilerOptions": {
+    "jsxImportSource": "vue"
+  }
+}
+```
+
 ## Simple Usage
 
 Example for [react-json-view](https://github.com/mac-s-g/react-json-view)
@@ -97,6 +107,24 @@ export const List = (props) => {
 ```
 
 Pass react children like this.
+
+Or define React component by JSX. Define `jsxImportSource` first.
+
+```tsx
+/**
+ * @jsxImportSource react
+ */
+
+export const List = (props) => {
+  return (
+    <div>
+      <ul>
+        // ...
+      </ul>
+    </div>
+  )
+}
+```
 
 ```vue
 <template>
