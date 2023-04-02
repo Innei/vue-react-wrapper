@@ -2,6 +2,7 @@
 import React, {
   Fragment,
   FunctionComponent,
+  PropsWithChildren,
   ReactNode,
   forwardRef,
   useEffect,
@@ -28,7 +29,7 @@ import {
 } from 'vue'
 
 type WithChildren<C> = C & { children?: ReactNode | ReactNode[] }
-export function createReactWrapper<P extends {}>(
+export function createReactWrapper<P extends PropsWithChildren<{}>>(
   Component: FunctionComponent<P>,
   propsReactive?: Ref<WithChildren<P>> | WithChildren<P>,
   children?: React.ReactNode[],
