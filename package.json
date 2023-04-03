@@ -71,12 +71,15 @@
     "vue": "^3"
   },
   "devDependencies": {
+    "@crossbell/connect-kit": "0.0.55",
+    "@crossbell/contract": "0.0.55",
     "@innei-util/eslint-config-react-ts": "0.8.2",
     "@innei-util/eslint-config-ts": "latest",
     "@innei-util/prettier": "latest",
     "@rollup/plugin-commonjs": "22.0.0",
     "@rollup/plugin-node-resolve": "13.3.0",
     "@rollup/plugin-typescript": "8.3.2",
+    "@tanstack/react-query": "4.28.0",
     "@types/node": "17.0.31",
     "@types/react-beautiful-dnd": "13.1.2",
     "@unocss/preset-wind": "0.33.2",
@@ -101,7 +104,8 @@
     "vite": "2.9.8",
     "vite-tsconfig-paths": "3.4.1",
     "vitest": "0.12.1",
-    "vue": "3.2.33"
+    "vue": "3.2.33",
+    "wagmi": "0.12.8"
   },
   "dependencies": {
     "@types/prop-types": "*",
@@ -111,7 +115,9 @@
     "csstype": "^3.0.2",
     "kbar": "0.1.0-beta.34",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "unidata.js": "0.7.17",
+    "vue-react-wrapper": "0.3.0-alpha.2"
   },
   "resolutions": {
     "@types/react": "./src/react-types/react"

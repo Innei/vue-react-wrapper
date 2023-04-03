@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {
+import {
   Fragment,
   FunctionComponent,
   ReactNode,
+  createElement,
   forwardRef,
   useEffect,
   useMemo,
@@ -134,7 +135,7 @@ export function createReactWrapper<P extends {}>(
             if (ctx.slots.children) {
               const node = ctx.slots.children()
 
-              return React.createElement(VueRenderHelper(node))
+              return createElement(VueRenderHelper(node))
             }
 
             return null
@@ -151,8 +152,8 @@ export function createReactWrapper<P extends {}>(
               ? combinedChildren[0]
               : combinedChildren
 
-          return React.createElement(Fragment, null, [
-            React.createElement(
+          return createElement(Fragment, null, [
+            createElement(
               Component,
               isRef($ref)
                 ? {
@@ -165,7 +166,7 @@ export function createReactWrapper<P extends {}>(
               combinedChildren,
             ),
 
-            React.createElement('div', {
+            createElement('div', {
               ref: childrenRef,
             }),
           ])
@@ -174,7 +175,7 @@ export function createReactWrapper<P extends {}>(
 
         if (propsIsVueRef) {
           reactDOMRoot!.render(
-            React.createElement(
+            createElement(
               wrapperReact,
               // @ts-ignore
               {
@@ -185,7 +186,7 @@ export function createReactWrapper<P extends {}>(
           )
         } else {
           reactDOMRoot!.render(
-            React.createElement(
+            createElement(
               wrapperReact,
               // @ts-ignore
               {
@@ -240,7 +241,7 @@ const VueRenderHelper =
         vueInstance.unmount()
       }
     }, [])
-    return React.createElement('div', {
+    return createElement('div', {
       ref,
     })
   }

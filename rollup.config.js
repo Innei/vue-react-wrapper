@@ -13,7 +13,7 @@ const packageJson = require('./package.json')
 const umdName = packageJson.name
 
 const globals = {
-  ...packageJson.devDependencies,
+  ...packageJson.dependencies,
 }
 
 const dir = 'dist'

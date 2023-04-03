@@ -22,6 +22,16 @@ npm i vue-react-wrapper
 
 - Vue 3
 
+## Setting TSConfig
+
+```json
+{
+  "compilerOptions": {
+    "jsxImportSource": "vue"
+  }
+}
+```
+
 ## Simple Usage
 
 Example for [react-json-view](https://github.com/mac-s-g/react-json-view)

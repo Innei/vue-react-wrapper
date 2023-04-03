@@ -20,22 +20,51 @@
 
   <hr />
 
+  <AppVue :react-ref="reactRef" />
+
+  <button @click="pub">Pub</button>
   <DnDView />
-  <kbar />
 </template>
 
 <script lang="ts" setup>
-import { KBar } from 'kbar'
 import { onMounted, reactive, ref } from 'vue'
 
+import { createReactWrapper as $$ } from '../dist/index.esm'
 import { createReactWrapper } from '../src/wrapper'
 import DnDView from './components/dnd.vue'
 import JSONView from './components/json.vue'
 import MdView from './components/markdown.vue'
 import { ReactInput } from './react-input'
 import { List } from './react-props'
+import { App } from './xlog'
 
-const kbar = createReactWrapper(KBar)
+const AppVue = $$(App)
+const ref$ = ref()
+const reactRef = () => ref$
+
+setTimeout(() => {
+  ref$.value.show()
+}, 1000)
+
+const pub = () => {
+  const create = ref$.value.createOrUpdatePage
+  create({
+    title: 't',
+    publishedAt: '2023-04-01T14:42:02.945Z',
+    published: true,
+    excerpt: '',
+    slug: 't0' + Math.random(),
+    tags: '',
+    content: 'tttt',
+    siteId: 'innei-4525',
+    isPost: true,
+    externalUrl: 'https://innei-4525.xlog.app/posts/t',
+    applications: ['xlog'],
+  })
+}
+
+console.log(ref$, 'reactRef')
+
 const inputRef = ref<HTMLElement>()
 const reactiveProps = ref({
   onChange(e) {

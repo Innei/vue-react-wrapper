@@ -21,6 +21,10 @@ export default defineConfig({
     }),
     vue(),
   ],
+  define: {
+    global: 'window',
+    'process.env': {},
+  },
   root: resolve(__dirname, './example'),
   build: {
     rollupOptions: {
